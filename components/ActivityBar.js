@@ -10,7 +10,7 @@ const ActivityBar = () => {
             <MaterialCommunityIcons
                 name={active == 0 ? 'home' : 'home-outline'}
                 size={30}
-                color={active == 0 ? '#3a86e9' : '#9F9F9F'}
+                color={active == 0 ? '#3a86e9' : '#A6A8AB'}
             />
             {
                 active == 0 &&
@@ -21,7 +21,7 @@ const ActivityBar = () => {
             <MaterialCommunityIcons
                 name={active == 1 ? 'account-circle' : 'account-circle-outline'}
                 size={30}
-                color={active == 1 ? '#3a86e9' : '#9F9F9F'}
+                color={active == 1 ? '#3a86e9' : '#A6A8AB'}
             />
             {
                 active == 1 &&
@@ -32,7 +32,7 @@ const ActivityBar = () => {
             <MaterialCommunityIcons
                 name={active == 2 ? 'bell' : 'bell-outline'}
                 size={30}
-                color={active == 2 ? '#3a86e9' : '#9F9F9F'}
+                color={active == 2 ? '#3a86e9' : '#A6A8AB'}
             />
             {
                 active == 2 &&
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         borderBottomWidth: 1,
-        borderBottomColor: '#F2F3F5',
+        borderBottomColor: '#D9D9D9',
         paddingTop: 5,
         paddingBottom: 5,
     },

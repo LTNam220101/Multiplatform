@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import Avatar from './Avatar'
 
@@ -7,9 +7,9 @@ const ToolBar = () => {
   return (
     <View style={styles.view}>
         <Avatar source={require('../assets/avatar.jpg')} />
-        <TextInput style={styles.input}
-            placeholder="Ngày hôm nay của bạn thế nào"
-        />
+        <TouchableHighlight style={styles.input}>
+            <Text>Ngày hôm nay của bạn thế nào?</Text>
+        </TouchableHighlight>
         <TouchableOpacity style={styles.button}>
             <MaterialCommunityIcons 
                 name='image-multiple'
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
-        height: 30,
+        height: 35,
         paddingLeft: 10,
         paddingRight: 10,
         marginLeft: 10,
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         borderWidth: 1,
         borderColor: '#F2F3F5',
+        justifyContent: 'center',
     },
     button: {
         borderRadius: 21,
