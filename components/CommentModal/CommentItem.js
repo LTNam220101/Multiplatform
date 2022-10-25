@@ -1,6 +1,7 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
+import { COLOR } from "../../styles/colors";
 
 const CommentItem = ({
   avatar,
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingTop: 4,
     paddingBottom: 7,
-    backgroundColor: "#e0e0e0",
+    backgroundColor: COLOR.grayBackground,
     borderRadius: 10
   },
   name: {
@@ -94,7 +95,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   icon: {
-    color: "#3a86e9",
+    color: COLOR.active,
     marginLeft: 3
   }
 });

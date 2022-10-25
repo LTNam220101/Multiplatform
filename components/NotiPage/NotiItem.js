@@ -1,6 +1,7 @@
 import React from 'react'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native'
+import { COLOR } from '../../styles/colors'
 
 const NotiItem = ({ avatar, name, read, time }) => {
   return (
@@ -23,7 +24,7 @@ const NotiItem = ({ avatar, name, read, time }) => {
             <TouchableOpacity style={styles.dots}>
                 <MaterialCommunityIcons 
                     name='dots-horizontal'
-                    size={25} 
+                    size={25}
                 />
             </TouchableOpacity>
         </View>
@@ -34,11 +35,11 @@ const NotiItem = ({ avatar, name, read, time }) => {
 const styles = StyleSheet.create({
     wrapper: {
         flexDirection: 'row',
-        backgroundColor: '#D4E7FF',
+        backgroundColor: COLOR.blueBackground,
         padding: 10,
     },
     read: {
-        backgroundColor: '#ffffff',
+        backgroundColor: COLOR.white,
     },
     img: {
         width: 50,
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     time: {
-        color: '#606770'
+        color: COLOR.grayTime
     }
 })
 

@@ -1,11 +1,12 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import NotiItem from './NotiItem';
+import { COLOR } from '../../styles/colors';
 
 const NotiPage = () => {
   return (
-    <View>
+    <ScrollView style={{flex: 1}}>
         <View style={styles.header}>
             <Text style={styles.text}>
                 Thông báo
@@ -14,7 +15,7 @@ const NotiPage = () => {
                 <Feather 
                     name='search'
                     size={20}
-                    color='black'
+                    color={COLOR.black}
                 />
             </TouchableOpacity>
         </View>
@@ -35,7 +36,7 @@ const NotiPage = () => {
             read
             time='25p'
         />
-    </View>
+    </ScrollView>
   )
 }
 
@@ -44,7 +45,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingLeft: 11,
         paddingRight: 11,
-        marginBottom: 10
+        marginBottom: 10,
+        marginTop: 7
     },
     text: {
         flex: 1,
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30,
         borderRadius: 21,
-        backgroundColor: '#eeeeee',
+        backgroundColor: COLOR.grayBackground,
         justifyContent: 'center',
         alignItems: 'center',
         marginLeft: 16

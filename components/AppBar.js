@@ -1,20 +1,21 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons'
+import { COLOR } from '../styles/colors'
 
 
 const AppBar = () => {
   return (
     <View style={styles.container}>
         <Text style={styles.text}>
-            facebook
+          facebook
         </Text>
         <View style={styles.buttons}>
             <TouchableOpacity style={styles.button}>
                 <Feather 
                     name='search'
                     size={29}
-                    color='black'
+                    color={COLOR.black}
                 />
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}>
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
     justifyContent:'space-between',
   },
   text: {
-    color: '#3a86e9',
+    color: COLOR.active,
     fontSize: 32,
     fontWeight: 'bold',
     letterSpacing: -0.3

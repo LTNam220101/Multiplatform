@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
+import { COLOR } from "../../styles/colors";
 import CommentsModal from "../CommentModal/CommentsModal";
 
 const News = ({
@@ -40,7 +41,7 @@ const News = ({
       <TouchableHighlight
         style={styles.top}
         onPress={() => setModalVisible(true)}
-        underlayColor="#e0e0e0"
+        underlayColor={COLOR.underlay}
         activeOpacity={0.05}
       >
         <>
@@ -59,7 +60,7 @@ const News = ({
       </TouchableHighlight>
       <TouchableHighlight
         onPress={() => setModalVisible(true)}
-        underlayColor="#e0e0e0"
+        underlayColor={COLOR.underlay}
         activeOpacity={0.05}
       >
         <Text style={styles.content}>{content}</Text>
@@ -67,7 +68,7 @@ const News = ({
       <TouchableHighlight
         style={styles.like}
         onPress={() => setModalVisible(true)}
-        underlayColor="#e0e0e0"
+        underlayColor={COLOR.underlay}
         activeOpacity={0.05}
       >
         <>
@@ -80,7 +81,7 @@ const News = ({
           <MaterialCommunityIcons
             name={like ? "thumb-up" : "thumb-up-outline"}
             size={15}
-            color={like ? "#3a86e9" : "#9F9F9F"}
+            color={like ? COLOR.active : COLOR.grayTime}
             style={styles.icon}
           />
           <Text style={like ? styles.button_like : styles.gray}>Thích</Text>
@@ -92,7 +93,7 @@ const News = ({
           <MaterialCommunityIcons
             name={"comment-outline"}
             size={15}
-            color={"#9F9F9F"}
+            color={COLOR.grayTime}
             style={styles.icon}
           />
           <Text style={styles.gray}>Bình Luận</Text>
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     marginTop: 10,
-    backgroundColor: "white",
+    backgroundColor: COLOR.white,
   },
   top: {
     flexDirection: "row",
@@ -128,7 +129,7 @@ const styles = StyleSheet.create({
   time: {
     fontWeight: "light",
     fontSize: 12,
-    tintColor: "#606770"
+    tintColor: COLOR.grayTime
   },
   dots: {
     alignItems: "flex-start",
@@ -144,7 +145,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     paddingLeft: 11,
     paddingRight: 11,
-    color: "#000"
+    color: COLOR.black
   },
   like: {
     color: "#333",
@@ -159,7 +160,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     borderTopWidth: 1,
-    borderTopColor: "#F2F3F5",
+    borderTopColor: COLOR.grayBorder,
     paddingLeft: 11,
     paddingRight: 11
   },
@@ -177,10 +178,10 @@ const styles = StyleSheet.create({
     marginRight: 5
   },
   button_like: {
-    color: "#3a86e9"
+    color: COLOR.active
   },
   gray: {
-    color: "#606770"
+    color: COLOR.grayTime
   }
 });
 
