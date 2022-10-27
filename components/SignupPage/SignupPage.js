@@ -11,6 +11,7 @@ import {
   View
 } from "react-native";
 import { COLOR } from "../../styles/colors";
+import { RadioButton } from "react-native-paper";
 
 const dimensions = Dimensions.get("window");
 const imageHeight = Math.round((dimensions.width * 265) / 527);
@@ -24,7 +25,11 @@ const loginValidationSchema = yup.object().shape({
   password: yup
     .string()
     .min(8, ({ min }) => `Password must be at least ${min} characters`)
-    .required("Password is required")
+    .required("Password is required"),
+  surname: yup.string().required("Surname is required"),
+  name: yup.string().required("Name is required"),
+  phone: yup.string().required("Phone number is required"),
+  gender: yup.string().required("Gender is required")
 });
 
 const SignupPage = ({ navigation }) => {
@@ -37,7 +42,15 @@ const SignupPage = ({ navigation }) => {
       />
       <View style={styles.bottom}>
         <Formik
-          initialValues={{ email: "", password: "", dob: new Date(), gender: "", phone: "", password: "", email: ""}}
+          initialValues={{
+            email: "",
+            password: "",
+            dob: new Date(),
+            gender: "",
+            phone: "",
+            password: "",
+            email: ""
+          }}
           validationSchema={loginValidationSchema}
           onSubmit={(values) => console.log(values)}
         >
@@ -77,6 +90,35 @@ const SignupPage = ({ navigation }) => {
               {errors.name && (
                 <Text style={{ fontSize: 10, color: COLOR.red }}>
                   {errors.name}
+                </Text>
+              )}
+              <RadioButton.Group
+                onValueChange={handleChange("gender")}
+                value={values.gender}
+              >
+                <View style={styles.radio}>
+                  <Text style={styles.radioBtnText}>Giới tính</Text>
+                  <View style={styles.radioBtn}>
+                    <RadioButton
+                      value="male"
+                      uncheckedColor={COLOR.white2}
+                      color={COLOR.active}
+                    />
+                    <Text style={styles.radioBtnText}>Nam</Text>
+                  </View>
+                  <View style={styles.radioBtn}>
+                    <RadioButton
+                      value="female"
+                      uncheckedColor={COLOR.white2}
+                      color={COLOR.active}
+                    />
+                    <Text style={styles.radioBtnText}>Nữ</Text>
+                  </View>
+                </View>
+              </RadioButton.Group>
+              {errors.gender && (
+                <Text style={{ fontSize: 10, color: COLOR.red }}>
+                  {errors.gender}
                 </Text>
               )}
               <TextInput
@@ -157,7 +199,7 @@ const styles = StyleSheet.create({
   },
   bottom: {
     paddingLeft: 20,
-    paddingRight: 20,
+    paddingRight: 20
   },
   input: {
     color: COLOR.white2,
@@ -197,7 +239,24 @@ const styles = StyleSheet.create({
     top: -8
   },
   signup: {
-    marginTop: 10,
+    marginTop: 10
+  },
+  radio: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 20,
+    marginBottom: 5,
+    borderBottomColor: COLOR.white2,
+    borderBottomWidth: 1
+  },
+  radioBtn: {
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  radioBtnText: {
+    color: COLOR.white2,
+    fontSize: 18
   }
 });
 
