@@ -1,6 +1,7 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
 import {
+  FlatList,
   Modal,
   ScrollView,
   StyleSheet,
@@ -12,7 +13,98 @@ import GestureRecognizer from "react-native-swipe-gestures";
 import { COLOR } from "../../styles/colors";
 import CommentItem from "./CommentItem";
 
-const CommentsModal = ({ modalVisible, setModalVisible, like, setLike }) => {
+const rawData = [
+  {
+    parentId: 0,
+    id: 1,
+    name: "Lương Thái Nam",
+    avatar: "../../assets/avatar.jpg",
+    content: "Đây là comment",
+    time: "25p",
+    likes: 20,
+    liked: true,
+    hasChild: false,
+    child: []
+  },
+  {
+    parentId: 0,
+    id: 2,
+    name: "Lương Thái Nam",
+    avatar: "../../assets/avatar.jpg",
+    content:
+      "Đây là comment dài vcl dài nàyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+    time: "25p",
+    likes: 0,
+    liked: false,
+    hasChild: false,
+    child: []
+  },
+  {
+    parentId: 1,
+    id: 3,
+    name: "Lương Thái Nam",
+    avatar: "../../assets/avatar.jpg",
+    content: "Đây là comment con",
+    time: "25p",
+    likes: 20,
+    liked: true,
+    hasChild: false,
+    child: []
+  },
+  {
+    parentId: 1,
+    id: 4,
+    name: "Lương Thái Nam",
+    avatar: "../../assets/avatar.jpg",
+    content: "Đây là comment con 2",
+    time: "25p",
+    likes: 20,
+    liked: true,
+    hasChild: false,
+    child: []
+  }
+];
+
+const processData = (data) => {
+  const dataReturn = [];
+  data.map((item) => {
+    if (item.parentId === 0) {
+      dataReturn.push(item);
+    } else {
+      dataReturn.forEach((itemReturn) => {
+        if (itemReturn.id === item.parentId) {
+          itemReturn.hasChild = true;
+          itemReturn.child.push(item);
+        }
+      });
+    }
+  });
+  return dataReturn;
+};
+
+const CommentsModal = ({
+  modalVisible,
+  setModalVisible,
+  like,
+  setLike,
+  id
+}) => {
+  const dataComments = processData(rawData);
+
+  const renderItem = ({ item }) => (
+    <CommentItem
+      avatar={require("../../assets/avatar.jpg")}
+      name={item.name}
+      content={item.content}
+      time={item.time}
+      likes={item.likes}
+      liked={item.liked}
+      id={item.id}
+      hasChild={item.hasChild}
+      child={item.child}
+    />
+  );
+
   return (
     <GestureRecognizer
       style={{ flex: 1 }}
@@ -42,57 +134,11 @@ const CommentsModal = ({ modalVisible, setModalVisible, like, setLike }) => {
                 />
               </TouchableOpacity>
             </View>
-            <ScrollView showsVerticalScrollIndicator={false}>
-              <CommentItem
-                avatar={require("../../assets/avatar.jpg")}
-                name={"Lương Thái Nam"}
-                content={"Đây là comment"}
-                time={"25p"}
-                likes={20}
-                liked
-                hasChild
-              />
-              <CommentItem
-                avatar={require("../../assets/avatar.jpg")}
-                name={"Lương Thái Nam"}
-                content={
-                  "Đây là comment dài vcl dài nàyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
-                }
-                time={"25p"}
-                likes={20}
-                liked
-              />
-              <CommentItem
-                avatar={require("../../assets/avatar.jpg")}
-                name={"Lương Thái Nam"}
-                content={
-                  "Đây là comment dài vcl dài nàyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
-                }
-                time={"25p"}
-                likes={20}
-                liked
-              />
-              <CommentItem
-                avatar={require("../../assets/avatar.jpg")}
-                name={"Lương Thái Nam"}
-                content={
-                  "Đây là comment dài vcl dài nàyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
-                }
-                time={"25p"}
-                likes={20}
-                liked
-              />
-              <CommentItem
-                avatar={require("../../assets/avatar.jpg")}
-                name={"Lương Thái Nam"}
-                content={
-                  "Đây là comment dài vcl dài nàyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
-                }
-                time={"25p"}
-                likes={20}
-                liked
-              />
-            </ScrollView>
+            <FlatList
+              data={dataComments}
+              renderItem={renderItem}
+              keyExtractor={(item) => item.id}
+            />
           </View>
         </View>
       </Modal>

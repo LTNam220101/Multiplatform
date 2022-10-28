@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { COLOR } from "../../styles/colors";
 
 const CommentItem = ({
@@ -10,8 +10,23 @@ const CommentItem = ({
   time,
   likes,
   liked,
-  hasChild
+  hasChild,
+  child
 }) => {
+  const renderItem = ({ item }) => (
+    <CommentItem
+      avatar={require("../../assets/avatar.jpg")}
+      name={item.name}
+      content={item.content}
+      time={item.time}
+      likes={item.likes}
+      liked={item.liked}
+      id={item.id}
+      hasChild={item.hasChild}
+      child={item.child}
+    />
+  );
+
   return (
     <View style={styles.container}>
       <Image source={avatar} style={styles.img} />
@@ -38,13 +53,10 @@ const CommentItem = ({
           )}
         </View>
         {hasChild && (
-          <CommentItem
-            avatar={require("../../assets/avatar.jpg")}
-            name={"Lương Thái Nam"}
-            content={"Đây là comment"}
-            time={"25p"}
-            likes={20}
-            liked
+          <FlatList
+            data={child}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
           />
         )}
       </View>
@@ -58,8 +70,8 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   img: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     borderRadius: 30,
     marginRight: 10
   },

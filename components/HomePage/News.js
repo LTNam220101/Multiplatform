@@ -2,15 +2,14 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import {
   Image,
-  Modal,
   StyleSheet,
   Text,
   TouchableHighlight,
   TouchableOpacity,
   View
 } from "react-native";
-import { COLOR } from "../../styles/colors";
 import CommentsModal from "../CommentModal/CommentsModal";
+import { COLOR } from "../../styles/colors";
 
 const News = ({
   avatar,
@@ -21,7 +20,8 @@ const News = ({
   video,
   likes,
   liked,
-  comments
+  comments,
+  id
 }) => {
   const [like, setLike] = useState(liked);
   const [modalVisible, setModalVisible] = useState(false);
@@ -37,6 +37,7 @@ const News = ({
         setModalVisible={setModalVisible}
         like={like}
         setLike={setLike}
+        id={id}
       />
       <TouchableHighlight
         style={styles.top}
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     marginTop: 10,
-    backgroundColor: COLOR.white,
+    backgroundColor: COLOR.white
   },
   top: {
     flexDirection: "row",

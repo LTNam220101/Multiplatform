@@ -1,8 +1,4 @@
-import {
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-} from "react-native";
+import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -15,13 +11,18 @@ import { COLOR } from "./styles/colors";
 import { useState } from "react";
 import LoginPage from "./components/LoginPage/LoginPage";
 import SignupPage from "./components/SignupPage/SignupPage";
+import SplashScreen from "./components/SplashScreen/SplashScreen";
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [openAppBar, setOpenAppBar] = useState(1);
-  const [isSignedIn, setIsSignIn] = useState(false);
+  const [isSignedIn, setIsSignIn] = useState(true);
+
+  if (isSignedIn === undefined) {
+    return <SplashScreen></SplashScreen>;
+  }
 
   return (
     <>
@@ -71,8 +72,16 @@ const App = () => {
               headerShown: false
             }}
           >
-            <Stack.Screen name="Login" component={LoginPage} />
-            <Stack.Screen name="Signup" component={SignupPage} />
+            <Stack.Screen
+              name="Login"
+              component={LoginPage}
+              initialParams={{ setIsSignIn: setIsSignIn }}
+            />
+            <Stack.Screen
+              name="Signup"
+              component={SignupPage}
+              initialParams={{ setIsSignIn: setIsSignIn }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       )}

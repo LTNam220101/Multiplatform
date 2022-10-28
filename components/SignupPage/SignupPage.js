@@ -1,17 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
 import {
   Button,
   Dimensions,
   Image,
+  Modal,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
+  TouchableHighlight,
   View
 } from "react-native";
 import { COLOR } from "../../styles/colors";
 import { RadioButton } from "react-native-paper";
+import DatePicker, { getFormatedDate } from "react-native-modern-datepicker";
 
 const dimensions = Dimensions.get("window");
 const imageHeight = Math.round((dimensions.width * 265) / 527);
@@ -33,8 +37,10 @@ const loginValidationSchema = yup.object().shape({
 });
 
 const SignupPage = ({ navigation }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Image
         resizeMode="contain"
         source={require("../../assets/login.jpeg")}
@@ -45,7 +51,7 @@ const SignupPage = ({ navigation }) => {
           initialValues={{
             email: "",
             password: "",
-            dob: new Date(),
+            dob: getFormatedDate(new Date(), "YYYY/MM/DD"),
             gender: "",
             phone: "",
             password: "",
@@ -58,6 +64,7 @@ const SignupPage = ({ navigation }) => {
             handleChange,
             handleBlur,
             handleSubmit,
+            setFieldValue,
             values,
             errors,
             isValid
@@ -121,6 +128,49 @@ const SignupPage = ({ navigation }) => {
                   {errors.gender}
                 </Text>
               )}
+              <TouchableHighlight onPress={() => setModalVisible(true)}>
+                <Text
+                  name="dob"
+                  placeholderTextColor={COLOR.white2}
+                  style={styles.input}
+                >
+                  Ngày sinh: {values.dob}
+                </Text>
+              </TouchableHighlight>
+              {errors.dob && (
+                <Text style={{ fontSize: 10, color: COLOR.red }}>
+                  {errors.dob}
+                </Text>
+              )}
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                <View style={styles.modalContent}>
+                  <DatePicker
+                    options={{
+                      backgroundColor: COLOR.black,
+                      textHeaderColor: COLOR.white,
+                      textDefaultColor: COLOR.white2,
+                      selectedTextColor: COLOR.white,
+                      mainColor: COLOR.blue,
+                      textSecondaryColor: COLOR.white
+                    }}
+                    mode="calendar"
+                    minuteInterval={30}
+                    style={{ borderRadius: 10 }}
+                    current={values.dob}
+                    onDateChange={(date) => {
+                      setFieldValue("dob", date);
+                      setModalVisible(false);
+                    }}
+                  />
+                </View>
+              </Modal>
               <TextInput
                 name="phone"
                 onChangeText={handleChange("phone")}
@@ -176,6 +226,11 @@ const SignupPage = ({ navigation }) => {
             </View>
           )}
         </Formik>
+        <View style={styles.orContainer}>
+          <View style={styles.blank}></View>
+          <Text style={styles.or}>Hoặc</Text>
+          <View style={styles.blank}></View>
+        </View>
         <View style={styles.signup}>
           <Button
             onPress={() => navigation.navigate("Login")}
@@ -184,7 +239,7 @@ const SignupPage = ({ navigation }) => {
           />
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -221,7 +276,8 @@ const styles = StyleSheet.create({
     marginBottom: 45
   },
   orContainer: {
-    marginBottom: 45,
+    marginBottom: 10,
+    marginTop: 15,
     flexDirection: "row"
   },
   or: {
@@ -239,7 +295,10 @@ const styles = StyleSheet.create({
     top: -8
   },
   signup: {
-    marginTop: 10
+    marginTop: 10,
+    marginLeft: 30,
+    marginRight: 30,
+    marginBottom: 50,
   },
   radio: {
     flexDirection: "row",
@@ -257,6 +316,12 @@ const styles = StyleSheet.create({
   radioBtnText: {
     color: COLOR.white2,
     fontSize: 18
+  },
+  modalContent: {
+    flex: 1,
+    backgroundColor: "rgba(52, 52, 52, 0.8)",
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
 

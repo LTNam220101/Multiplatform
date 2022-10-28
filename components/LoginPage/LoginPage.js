@@ -10,6 +10,7 @@ import {
   TextInput,
   View
 } from "react-native";
+import { LogBox } from "react-native";
 import { COLOR } from "../../styles/colors";
 
 const dimensions = Dimensions.get("window");
@@ -27,7 +28,11 @@ const loginValidationSchema = yup.object().shape({
     .required("Password is required")
 });
 
-const LoginPage = ({ navigation }) => {
+LogBox.ignoreLogs([
+  "Non-serializable values were found in the navigation state"
+]);
+
+const LoginPage = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <Image
@@ -39,7 +44,10 @@ const LoginPage = ({ navigation }) => {
         <Formik
           initialValues={{ email: "", password: "" }}
           validationSchema={loginValidationSchema}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={(values) => {
+            console.log(values);
+            route.params.setIsSignIn(true);
+          }}
         >
           {({
             handleChange,
