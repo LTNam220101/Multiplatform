@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import CreatePostModal from "./CreatePostModal";
 import Avatar from "../Avatar";
 import { COLOR } from "./../../styles/colors";
@@ -30,8 +30,8 @@ const ToolBar = () => {
         <Text>Ngày hôm nay của bạn thế nào?</Text>
       </TouchableHighlight>
       <TouchableOpacity style={styles.button}>
-        <MaterialCommunityIcons
-          name="image-multiple"
+        <Ionicons
+          name="images-outline"
           size={25}
           color={COLOR.green}
         />

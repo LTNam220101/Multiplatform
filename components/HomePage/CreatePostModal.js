@@ -27,7 +27,10 @@ const CreatePostModal = ({ modalVisible, setModalVisible }) => {
     >
       <View style={styles.modalView}>
         <View style={styles.top}>
-          <TouchableOpacity style={styles.return} onPress={()=>setModalVisible(false)}>
+          <TouchableOpacity
+            style={styles.return}
+            onPress={() => setModalVisible(false)}
+          >
             <Ionicons
               name={"arrow-back-outline"}
               size={30}
@@ -56,7 +59,17 @@ const CreatePostModal = ({ modalVisible, setModalVisible }) => {
             placeholder={"Bạn đang nghĩ gì?"}
           ></TextInput>
         </Pressable>
-        <View style={styles.bottom}></View>
+        <View style={styles.bottom}>
+          <TouchableOpacity style={styles.button}>
+            <Ionicons name="images-outline" size={25} color={COLOR.green} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Ionicons name="happy-outline" size={25} color={COLOR.red} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Ionicons name="ellipsis-horizontal-circle-sharp" size={25} color={COLOR.inactive} />
+          </TouchableOpacity>
+        </View>
       </View>
     </Modal>
   );
@@ -114,6 +127,14 @@ const styles = StyleSheet.create({
   content: {
     flexWrap: "wrap",
     fontSize: 18
+  },
+  bottom: {
+    padding: 10,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    borderTopWidth: 1,
+    borderTopColor: COLOR.gray
   }
 });
 
